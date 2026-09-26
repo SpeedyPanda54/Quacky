@@ -1,0 +1,205 @@
+/* General Body and HTML structure for centering the game */
+body {
+    display: flex; /* Use flexbox to center the game container */
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    min-height: 100vh; /* Ensure body takes full viewport height */
+    margin: 0; /* Remove default body margin */
+    overflow: hidden; /* Hide any overflow, especially from the pseudo-element blur */
+    position: relative; /* Essential for positioning the ::before pseudo-element */
+    background-color: #333; /* Fallback background color if image fails to load */
+    font-family: 'Press Start 2P', cursive; /* Apply retro font globally */
+}
+
+/* Pseudo-element for the Blurred Background */
+body::before {
+    content: ''; /* Required for pseudo-elements */
+    position: absolute; /* Position relative to the body */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('flappybirdbg.png'); /* Path to your background image */
+    background-size: cover; /* Make the background image cover the entire area */
+    background-position: center bottom; /* MODIFIED: Horizontally centered, vertically aligned to bottom */
+    background-repeat: no-repeat; /* Ensure the image doesn't repeat */
+    filter: blur(8px); /* Apply the blur effect */
+    -webkit-filter: blur(8px); /* For better browser compatibility */
+    z-index: -1; /* Puts the blurred background BEHIND other content */
+    transform: scale(1.02); /* Optional: A slight scale to hide blur edges if content is very sharp */
+    transition: filter 0.5s ease; /* Optional: Smooth transition for blur */
+}
+
+
+/* Game Container - holds the canvas and UI overlays */
+#game-container {
+    position: relative; /* Needed for stacking context for overlays */
+    overflow: hidden; /* Hides any content that overflows */
+    border: 5px solid white; /* Your existing border */
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
+    z-index: 1; /* Ensures game-container is on top of the pseudo-background */
+    background: none; /* Make game-container background transparent */
+
+    /* KEY CHANGES FOR SIZING AND ASPECT RATIO */
+    max-width: 90vw; /* Takes up to 90% of viewport width */
+    max-height: 90vh; /* Takes up to 90% of viewport height */
+    aspect-ratio: 360 / 640; /* Crucial: Maintains the game's original aspect ratio */
+    width: auto; /* Allows width to be determined by aspect-ratio and max-height */
+    height: auto; /* Allows height to be determined by aspect-ratio and max-width */
+}
+
+/* Canvas Element */
+#board {
+    display: block; /* Removes extra space below canvas */
+    background-color: transparent; /* Make canvas background transparent to see the blurred body background */
+    width: 100%; /* Make canvas fill its parent container */
+    height: 100%; /* Make canvas fill its parent container */
+}
+
+/* Overlay Styling (for Start, Game Over, Countdown screens) */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent black background */
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    z-index: 2; /* Ensures overlays are on top of the canvas */
+    padding: 20px; /* Add some padding for content */
+    box-sizing: border-box; /* Include padding in width/height */
+}
+
+.game-overlay h1 {
+    font-size: 2.5em; /* Larger heading */
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 5px rgba(0,0,0,0.8);
+}
+
+.game-overlay p {
+    font-size: 1.2em;
+    margin-bottom: 15px;
+}
+
+.score-info {
+    font-size: 1em;
+    margin-top: 10px;
+    margin-bottom: 20px;
+}
+
+/* Current Score Display */
+#score-display {
+    position: absolute;
+    top: 20px; /* Adjust as needed */
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 2em;
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+    z-index: 3; /* Ensure score is above canvas and overlays when active */
+}
+
+/* Countdown Display Specifics */
+#countdown-display {
+    font-size: 5em; /* Large text for countdown */
+    font-weight: bold;
+    text-shadow: 4px 4px 8px rgba(0,0,0,0.9);
+}
+
+/* Hidden Utility Class */
+.hidden {
+    display: none !important; /* Forces element to be hidden */
+}
+
+/* Buttons */
+button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.1s ease;
+}
+
+button:hover {
+    background-color: #45a049;
+    transform: translateY(-2px); /* Slight lift on hover */
+}
+
+button:active {
+    background-color: #3e8e41;
+    transform: translateY(0); /* Press effect */
+}
+
+/* Difficulty Buttons Container */
+.difficulty-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px; /* Space between buttons */
+    margin-top: 20px;
+    justify-content: center;
+    margin-bottom: 25px; /* Cushion between Difficulty and Play Again buttons */
+}
+
+.difficulty-button {
+    background-color: #008CBA; /* Blue */
+    padding: 10px 20px; /* Smaller padding than main buttons */
+    font-size: 0.9em;
+}
+
+.difficulty-button.active {
+    background-color: #f44336; /* Red for active difficulty */
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.5); /* Highlight active button */
+}
+
+.difficulty-button:hover {
+    background-color: #007bb5;
+}
+.difficulty-button.active:hover {
+    background-color: #d13d33; /* Darker red on hover for active */
+}
+ body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 0;
+            background-color: #222; /* Default fallback body background */
+        }
+
+        #game-header {
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7); /* Dimmed background overlay */
+            text-align: center;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 2px solid #4CAF50; /* Add an accent line */
+        }
+
+        #game-header h1 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .home-link {
+            color: #4CAF50; /* Arcade Green */
+            text-decoration: none;
+            transition: color 0.2s ease, text-shadow 0.2s ease;
+        }
+
+        .home-link:hover {
+            color: #fff;
+            text-shadow: 0px 0px 10px #4CAF50;
+        }

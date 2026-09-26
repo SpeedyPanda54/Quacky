@@ -1,0 +1,81 @@
+/* ==========================================
+   QUACKY ARCADE: Custom Kids Theme
+   ========================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
+
+:root {
+    --bs-body-bg: #76C0EC; /* Your custom light blue background */
+}
+
+body {
+    font-family: 'Fredoka', cursive, sans-serif;
+    color: #263238;
+}
+
+/* Header Text Styling */
+header h1 {
+    color: #ffffff !important;
+    text-shadow: 3px 3px 0px #2979ff;
+}
+
+/* Footer Contact Link */
+footer a#contactMail {
+    color: #0d47a1 !important;
+}
+
+/* Game Image Wrapper */
+/* Game Image Wrapper */
+.gameImageWrapper {
+    width: 100%;
+    height: 180px;
+    background-color: #e1f5fe;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+/* Placeholder for Coming Soon */
+.placeholderText {
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: #0288d1;
+    background: #b3e5fc;
+    padding: 10px 20px;
+    border-radius: 50px;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* Bouncy Hover Effect for Cards */
+.gameCardHover {
+    transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.gameCardHover:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 1rem 3rem rgba(0,0,0,0.2) !important;
+    border-color: #ffffff !important;
+}
+
+/* ==========================================
+   LAYOUT BORDERS & DIVIDERS
+   ========================================== */
+
+/* The outer frame holding the top, left, and right lines */
+.arcadeFrame {
+    border-top: 2px solid rgba(0, 0, 0, 0.15);
+    border-left: 2px solid rgba(0, 0, 0, 0.15);
+    border-right: 2px solid rgba(0, 0, 0, 0.15);
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+}
+
+/* The contact line at the top of the footer where the side lines terminate */
+.footerDivider {
+    border-top: 2px solid rgba(0, 0, 0, 0.15);
+    width: 100%;
+    margin-left: -2rem; /* Expands the line to touch the left and right borders */
+    width: calc(100% + 4rem); /* Matches the wrapper padding */
+}

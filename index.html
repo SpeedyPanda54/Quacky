@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quacky</title>
+    <link href="bootstrap-5.3.3-dist/css/bootstrap.min.css" rel="stylesheet">
+    <script src="bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body class="d-flex flex-column min-vh-100">
+
+    <!-- Header / Banner -->
+    <header class="text-center py-5">
+        <h1 class="display-3 fw-bold text-primary drop-shadow">Quacky</h1>
+    </header>
+
+    <!-- Unified Frame Wrapper (Top, Left, and Right lines start here and go down to the contact line) -->
+    <div class="container my-4 flex-grow-1 arcadeFrame d-flex flex-column">
+        
+        <!-- Main Game Grid Container -->
+        <main class="my-4 flex-grow-1">
+            <div class="row g-4 justify-content-center" id="gameGrid">
+                <!-- Dynamic cards load here -->
+            </div>
+        </main>
+
+        <!-- Footer / Contact Section (The top border here serves as the contact line where the side lines touch) -->
+        <footer class="footerDivider text-center py-4 text-muted mt-auto">
+            <h3 class="fw-bold text-primary">Questions, Comments, Concerns?</h3>
+            <p class="mb-0 text-muted"><strong>Contact us here: </strong><code><a id="contactMail" href="mailto:info@quacky.com" class="text-decoration-underline">info@quacky.com</a></code></p>
+        </footer>
+
+    </div>
+
+    <script src="main.js"></script>
+</body>
+</html>

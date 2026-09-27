@@ -1,3 +1,20 @@
+// Import Firebase SDK modules
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-app.js";
+import { getFirestore, collection, addDoc, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/12.19.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyDPM42FICNjUAieqVPU-UZRuzyOKu_OXe0",
+  authDomain: "quacky-96f2c.firebaseapp.com",
+  projectId: "quacky-96f2c",
+  storageBucket: "quacky-96f2c.firebasestorage.app",
+  messagingSenderId: "320934850122",
+  appId: "1:320934850122:web:469f17177a414b110980b3",
+  measurementId: "G-WY5V5PVC56"
+};
+
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
 // Game Board Constants
 let board;
 let context;
@@ -104,6 +121,8 @@ let countdownIntervalId;
 
 // --- Game loop and Initialization ---
 window.onload = function() {
+    // Inside window.onload or setup:
+document.getElementById("submit-score-btn").addEventListener("click", saveHighScore);
     board = document.getElementById("board");
     context = board.getContext("2d");
     gameContainer = document.getElementById("game-container");
@@ -128,17 +147,17 @@ window.onload = function() {
 
     // Load images
     birdImg = new Image();
-    birdImg.src = "./flappybird.png";
+    birdImg.src = "flappybird.png";
 
     birdImg2 = new Image(); // Load the second bird image for animation
-    birdImg2.src = "./flappybird(2).png";
+    birdImg2.src = "flappybird(2).png";
 
     topPipeImg = new Image();
-    topPipeImg.src = "./toppipe.png";
+    topPipeImg.src = "toppipe.png";
     bottomPipeImg = new Image();
-    bottomPipeImg.src = "./bottompipe.png";
+    bottomPipeImg.src = "bottompipe.png";
     boardBgImg = new Image();
-    boardBgImg.src = "./flappybirdbg.png";
+    boardBgImg.src = "flappybirdbg.png";
 
     // Add event listeners for game interaction (Spacebar, mouse click on canvas, touch on canvas)
     document.addEventListener("keydown", handleInput); // Keydown for Spacebar (global)
@@ -195,10 +214,12 @@ function setBoardSize() {
 
 // Main game loop
 function update() {
+    
     requestAnimationFrame(update);
 
     context.clearRect(0, 0, board.width, board.height); // Clear board first
-
+context.fillStyle = "red";
+    context.fillRect(50, 50, 100, 100);
     // Always draw the background image first if it's loaded
     if (boardBgImg.complete && board.width > 0 && board.height > 0) {
         context.drawImage(boardBgImg, 0, 0, board.width, board.height);
@@ -229,6 +250,7 @@ function update() {
     if (currentGameState === GAME_STATE.START) {
         showScreen(startScreen);
         hideScreen(gameOverScreen);
+
         hideScreen(scoreDisplayElement);
         hideScreen(countdownDisplayElement);
 
@@ -243,8 +265,12 @@ function update() {
         showScreen(countdownDisplayElement);
 
         // Use currentBirdImage for drawing
-        if (currentBirdImage) {
+        if (currentBirdImage && currentBirdImage.complete) {
             context.drawImage(currentBirdImage, bird.x, bird.y, bird.width, bird.height);
+        } else {
+            // Fallback yellow box so the bird is ALWAYS visible even if images take a second to load
+            context.fillStyle = "#FFD700";
+            context.fillRect(bird.x, bird.y, bird.width, bird.height);
         }
         for (let i = 0; i < pipeArray.length; i++) {
             let pipe = pipeArray[i];
@@ -328,8 +354,12 @@ function handleInput(e) {
     }
 
     // Game state transitions based on jump input
-    if (currentGameState === GAME_STATE.START) {
+   if (currentGameState === GAME_STATE.START) {
         currentGameState = GAME_STATE.COUNTDOWN;
+        
+        // ADD THIS LINE RIGHT HERE:
+        document.getElementById("start-screen").style.display = "none";
+        
         resetGame();
         startCountdown();
     } else if (currentGameState === GAME_STATE.PLAYING) {
@@ -478,15 +508,19 @@ function updateUIHighScore() {
 }
 
 // Helper to show an HTML element by removing 'hidden' class
+// Helper to show an HTML element by removing 'hidden' class
+// Helper to show an HTML element by removing 'hidden' class and resetting style
 function showScreen(element) {
+    if (!element) return;
     element.classList.remove("hidden");
+    element.style.display = ""; // Clears any inline "display: none"
 }
 
 // Helper to hide an HTML element by adding 'hidden' class
 function hideScreen(element) {
+    if (!element) return;
     element.classList.add("hidden");
 }
-
 // --- Difficulty Selection ---
 function setDifficulty(event) {
     difficultyButtons.forEach(button => {
@@ -509,3 +543,56 @@ function setDifficulty(event) {
     event.target.blur(); // Remove focus from the button after click
 }
 // --- END UI FUNCTIONS ---
+
+// 1. Trigger this inside your existing game over function
+function triggerGameOver() {
+    // ... whatever your current game over code does ...
+    fetchHighScores(); // Pulls the leaderboard live
+}
+
+// 2. Save score function
+async function saveHighScore() {
+    let nameInput = document.getElementById("player-name").value.trim();
+    let playerName = nameInput ? nameInput : "ANON";
+
+    try {
+        await addDoc(collection(db, "flappyduck_highscores"), {
+            name: playerName.toUpperCase(),
+            score: Math.floor(score), // Uses your existing score variable
+            timestamp: new Date()
+        });
+        
+        document.getElementById("score-submit-area").style.display = "none";
+        fetchHighScores();
+    } catch (e) {
+        console.error("Error saving score: ", e);
+    }
+}
+
+// 3. Fetch leaderboard function
+async function fetchHighScores() {
+    const listEl = document.getElementById("leaderboard-list");
+    if (!listEl) return;
+    listEl.innerHTML = "<li>Loading...</li>";
+
+    try {
+        const q = query(collection(db, "flappyduck_highscores"), orderBy("score", "desc"), limit(5));
+        const querySnapshot = await getDocs(q);
+        
+        listEl.innerHTML = "";
+        if (querySnapshot.empty) {
+            listEl.innerHTML = "<li>No high scores yet!</li>";
+            return;
+        }
+
+        querySnapshot.forEach((doc) => {
+            let data = doc.data();
+            let li = document.createElement("li");
+            li.innerText = `${data.name}: ${data.score}`;
+            listEl.appendChild(li);
+        });
+    } catch (e) {
+        console.error("Error loading scores: ", e);
+        listEl.innerHTML = "<li>Error loading scores</li>";
+    }
+}

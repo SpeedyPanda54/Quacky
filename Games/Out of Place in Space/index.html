@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Quacky | Out of Place in Outer Space</title>
+        <link rel="stylesheet" href="style.css">
+    </head>
+    <body>
+        <!-- Persistent Global Header (Shows on every screen) -->
+<header id="global-header" style="position: fixed; top: 0; left: 0; width: 100%; background: #111827; padding: 12px 20px; display: flex; align-items: center; justify-content: space-between; z-index: 1000; box-sizing: border-box; border-bottom: 1px solid #374151;">
+    <h1 id="home-title-btn" style="color: white; font-size: 24px; margin: 0; cursor: pointer; font-weight: bold; letter-spacing: 1px;">🦆 Quacky 🚀</h1>
+</header>
+        <!-- LOBBY / START SCREEN -->
+        <div id="lobby-screen" class="screen">
+            <h1>Space Station Alpha</h1>
+            <input type="text" id="player-name-input" placeholder="Enter your name..." maxlength="25">
+            <button id="join-btn">Join Lobby</button>
+            <div id="player-count">Players in lobby: 0/10</div>
+        </div>
+        <!-- Waiting Room Screen -->
+        <div id="waiting-room-screen" class="hidden" style="text-align: center; color: white; padding-top: 100px; background: #0f172a; height: 100vh;">
+            <h1>Space Station Waiting Room</h1>
+            <p id="role-announcement" style="font-size: 20px; font-weight: bold; margin: 20px 0;"></p>
+            
+            <!-- Live Player Count & Timer Display -->
+            <p id="player-count-display" style="font-size: 18px; color: #4da6ff; margin: 10px 0;">Waiting for players... (1/4)</p>
+            <p id="timer-display" style="font-size: 26px; font-weight: bold; color: #ffcc00; margin: 15px 0;"></p>
+
+            <!-- Waiting Room Image Placeholder -->
+            <div style="margin: 20px auto;">
+                <img src="https://images.unsplash.com/photo-1451187580459-43490279c0fa?w=400" alt="Space Station" style="border-radius: 10px; max-width: 400px; border: 2px solid #4da6ff;">
+            </div>
+            
+            <p>Game will launch automatically when full or when the timer ends!</p>
+        </div>
+        <!-- GAME CANVAS SCREEN -->
+        <div id="game-screen" class="screen hidden">
+            <canvas id="gameCanvas" width="800" height="600"></canvas>
+            <div id="ui-overlay">
+                <button id="call-meeting-btn">🚨 Emergency Meeting</button>
+            </div>
+        </div>
+        <!-- Emergency Meeting & Voting Screen -->
+        <div id="meeting-screen" class="hidden" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; z-index: 10;">
+            <h2 style="color: #ff4d4d; margin-bottom: 10px;">🚨 EMERGENCY MEETING 🚨</h2>
+            <p id="meeting-status" style="margin-bottom: 20px;">Discuss who the Saboteur is and cast your vote!</p>
+            <div id="voting-list" style="display: flex; flex-direction: column; gap: 10px; width: 300px; max-height: 250px; overflow-y: auto;"></div>
+            <button id="call-meeting-btn" style="margin-top: 20px; padding: 10px 20px; background: #ef4444; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold;">🚨 Call Emergency Meeting</button>
+        </div>
+        <!-- EMERGENCY MEETING OVERLAY -->
+        <div id="meeting-screen" class="screen hidden">
+            <h2>EMERGENCY MEETING</h2>
+            <div id="chat-box"></div>
+            <div id="voting-panel">
+                <!-- Dynamic vote buttons get injected here -->
+            </div>
+        </div>
+        <!-- Game Over / Victory Screen -->
+        <div id="game-over-screen" class="hidden" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); display: flex; flex-direction: column; align-items: center; justify-content: center; color: white; font-family: sans-serif; z-index: 20;">
+            <h1 id="game-over-title" style="font-size: 48px; margin-bottom: 10px; text-align: center;">🏆 GAME OVER 🏆</h1>
+            <p id="game-over-message" style="font-size: 20px; margin-bottom: 25px; color: #9ca3af; text-align: center;">The station's fate has been decided.</p>
+            <button id="restart-btn" style="padding: 12px 24px; background: #2563eb; color: white; border: none; border-radius: 5px; cursor: pointer; font-weight: bold; font-size: 16px;">Return to Lobby</button>
+        </div>
+        <!-- Firebase Scripts -->
+        <!-- Firebase App (required) -->
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+        <!-- Firebase Realtime Database -->
+        <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+        <script src="game.js"></script>
+    </body>
+</html>

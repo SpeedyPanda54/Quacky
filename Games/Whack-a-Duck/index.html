@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Whack a Duck</title>
+    <link rel="stylesheet" href="mole.css">
+</head>
+<body>
+    <h1>Whack-a-Duck</h1>
+
+    <div class="speed-options">
+        <h3>Select the speed difficulty</h3
+        <div class="button-group">
+            <button class="Speed" id="Slow">Slow</button>
+            <button class="Speed" id="Medium">Medium</button>
+            <button class="Speed" id="Fast">Fast</button>
+        </div>
+    </div>
+
+    <h2>High Score: <span id="high-score">0</span></h2> <h2>Score: <span id="score">0</span></h2>
+    
+    <button id="Reset" onclick="setGame()">Restart Game</button>
+    
+    <div id="board">
+    </div>
+
+    <!-- Leaderboard UI Container (Place this right here!) -->
+    <div id="leaderboard-container" style="background: rgba(31, 41, 55, 0.9); padding: 15px; border-radius: 12px; color: white; width: 280px; margin: 20px auto; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
+        <h3 style="margin-top: 0; border-bottom: 1px solid #4b5563; padding-bottom: 8px;">🏆 Top Hunters</h3>
+        <ul id="leaderboard-list" style="list-style: none; padding: 0; margin: 0; text-align: left;">
+            <li style="padding: 4px 0; color: #9ca3af; text-align: center;">Loading scores...</li>
+        </ul>
+    </div>
+    <!-- Game Over Name Input Modal (Hidden by default) -->
+    <div id="game-over-modal" style="display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: #1f2937; padding: 25px; border-radius: 12px; color: white; border: 2px solid white; z-index: 1000; box-shadow: 0 10px 25px rgba(0,0,0,0.5); text-align: center;">
+        <h3>⚠️ GAME OVER! ⚠️</h3>
+        <p>Your Score: <span id="final-score-display">0</span></p>
+        <p>Enter your name for the leaderboard:</p>
+        <input type="text" id="player-name-input" placeholder="Quacky Hunter" maxlength="25" style="padding: 8px; font-size: 1em; border-radius: 6px; border: none; width: 80%; margin-bottom: 15px; text-align: center;">
+        <br>
+        <button id="submit-score-btn" style="padding: 8px 16px; background-color: #10b981; color: white; border: none; border-radius: 6px; font-weight: bold; cursor: pointer;">Submit Score</button>
+    </div>
+    <!-- Firebase Compat SDK Scripts -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+    <script src="/QuackyTitle.js">  </script>
+    <script type = "module"src="mole.js"></script>
+</body>
+</html>

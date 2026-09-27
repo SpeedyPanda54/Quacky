@@ -31,22 +31,20 @@ body::before {
 }
 
 
-/* Game Container - holds the canvas and UI overlays */
 #game-container {
-    position: relative; /* Needed for stacking context for overlays */
-    overflow: hidden; /* Hides any content that overflows */
-    border: 5px solid white; /* Your existing border */
-    border-radius: 10px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7);
-    z-index: 1; /* Ensures game-container is on top of the pseudo-background */
-    background: none; /* Make game-container background transparent */
-
-    /* KEY CHANGES FOR SIZING AND ASPECT RATIO */
-    max-width: 90vw; /* Takes up to 90% of viewport width */
-    max-height: 90vh; /* Takes up to 90% of viewport height */
-    aspect-ratio: 360 / 640; /* Crucial: Maintains the game's original aspect ratio */
-    width: auto; /* Allows width to be determined by aspect-ratio and max-height */
-    height: auto; /* Allows height to be determined by aspect-ratio and max-width */
+    position: relative !important;
+    overflow: hidden !important;
+    border: 5px solid white !important;
+    border-radius: 10px !important;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.7) !important;
+    z-index: 1 !important;
+    
+    /* Force a solid, reliable size with the correct aspect ratio */
+    width: 360px !important;
+    height: 640px !important;
+    max-width: 100vw !important;
+    max-height: 80vh !important;
+    object-fit: contain !important;
 }
 
 /* Canvas Element */
@@ -203,3 +201,84 @@ button:active {
             color: #fff;
             text-shadow: 0px 0px 10px #4CAF50;
         }
+        #game-over-screen {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 8px; /* Adds breathing room between every element */
+    padding: 10px;
+}
+
+#game-over-screen h1 {
+    font-size: 1.2rem;
+    margin-bottom: 0px;
+}
+
+#leaderboard-container {
+    max-height: 140px;
+    overflow-y: auto;
+}
+/* Force hidden overlays to completely vanish and stop overlapping */
+.game-overlay.hidden {
+    display: none !important;
+}
+
+/* Ensure active overlays stack cleanly as flex containers */
+.game-overlay:not(.hidden) {
+    display: flex !important;
+}
+
+/* Ensure the game container is relative so overlays stay inside it */
+#game-container {
+    position: relative;
+}
+
+/* Base style for all game overlays */
+.game-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: white;
+    z-index: 10;
+    gap: 10px; /* Prevents text and buttons from smashing into each other */
+}
+
+/* 1. Force the game container to anchor absolute children */
+#game-container {
+    position: relative !important;
+    display: inline-block !important; /* or block depending on your layout */
+}
+
+/* 2. Force overlays to cover the canvas exactly and respect display states */
+#game-container .game-overlay {
+    position: absolute !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    background-color: rgba(0, 0, 0, 0.85) !important;
+    z-index: 100 !important;
+    flex-direction: column !important;
+    align-items: center !important;
+    justify-content: center !important;
+    box-sizing: border-box !important;
+}
+
+/* 3. If an element has style="display: none", force it to respect it */
+#game-container .game-overlay[style*="display: none"] {
+    display: none !important;
+}
+
+/* 4. If an element has style="display: flex", force it to display flex */
+#game-container .game-overlay[style*="display: flex"] {
+    display: flex !important;
+}

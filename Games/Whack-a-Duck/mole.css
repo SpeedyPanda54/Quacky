@@ -1,0 +1,152 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    /* Copyright-free Valley / Sky Gradient background */
+    background: linear-gradient(to bottom, #4fc3f7 0%, #81d4fa 50%, #81c784 50%, #388e3c 100%);
+    background-size: cover;
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    display: flex; 
+    flex-direction: column; 
+    align-items: center; 
+    min-height: 100vh; 
+}
+
+h1 {
+    color: white;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.7);
+    margin-bottom: 20px;
+}
+
+.speed-options {
+    margin-bottom: 20px; /* Space between speed options and score */
+    background-color: rgba(255, 255, 255, 0.8); /* Slightly transparent background */
+    padding: 15px 25px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex; /* Use flexbox for the container */
+    flex-direction: column; /* Stack heading and buttons vertically */
+    align-items: center; /* Center items (heading and button-group) horizontally */
+}
+
+.speed-options h3 {
+    margin-top: 0; /* Remove default top margin */
+    margin-bottom: 15px; /* Space between heading and buttons */
+    color: #333; /* Darker text for readability on light background */
+}
+
+.button-group {
+    display: flex; /* Use flexbox for the buttons */
+    gap: 10px; /* Space between the buttons */
+    justify-content: center; /* Center the buttons within their group */
+    width: 100%; /* Ensure button-group takes full width of its parent */
+}
+
+h2 {
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.7);
+    margin-top: 10px;
+}
+
+#Reset {
+    padding: 10px 20px;
+    font-size: 1.2em;
+    cursor: pointer;
+    margin-top: 20px;
+    border: none;
+    border-radius: 8px;
+    background-color: #ff9800; /* Orange color for reset */
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+#Reset:hover {
+    background-color: #e65100; /* Darker orange on hover */
+}
+
+#board {
+    /* Adjusted for dynamic grid sizes */
+    display: grid; /* Use CSS Grid for the board layout */
+    gap: 10px; /* Space between grid items (tiles) */
+    padding: 10px; /* Padding inside the board */
+    background: url("soil.png"); /* Ensure this path is correct */
+    background-size: cover;
+    border: 3px solid white;
+    border-radius: 25px;
+    box-sizing: border-box; /* Include padding/border in overall size */
+    margin: 20px auto; /* Centering the board and adding some margin */
+    /* Min-width and Min-height to ensure board doesn't collapse */
+    min-width: 200px; /* Example, adjust if needed */
+    min-height: 200px; /* Example, adjust if needed */
+    width: fit-content; /* Allow board width to adjust to content */
+    height: fit-content; /* Allow board height to adjust to content */
+    max-width: 90vw; /* Prevent board from overflowing on very small screens */
+    max-height: 90vh; /* Prevent board from overflowing on very small screens */
+}
+
+#board.board-4-tiles { /* For 2x2 grid */
+    grid-template-columns: repeat(2, 1fr); /* 2 columns, each taking equal space */
+    grid-template-rows: repeat(2, 1fr); /* 2 rows, each taking equal space */
+    width: 380px; /* Adjust as needed for 2x2. (2 * 180px + 10px gap + 2 * 10px padding) */
+    height: 380px;
+}
+
+#board.board-9-tiles { /* For 3x3 grid */
+    grid-template-columns: repeat(3, 1fr); /* 3 columns */
+    grid-template-rows: repeat(3, 1fr); /* 3 rows */
+    width: 580px; /* Adjust as needed for 3x3. (3 * 180px + 2 * 10px gap + 2 * 10px padding) */
+    height: 580px;
+}
+
+#board.board-16-tiles { /* For 4x4 grid */
+    grid-template-columns: repeat(4, 1fr); /* 4 columns */
+    grid-template-rows: repeat(4, 1fr); /* 4 rows */
+    width: 780px; /* Adjust as needed for 4x4. (4 * 180px + 3 * 10px gap + 2 * 10px padding) */
+    height: 780px;
+}
+
+
+#board div {
+    /* Individual tile styling remains similar, but now they auto-size in the grid */
+    background-image: url("pipe.png"); /* Ensure this path is correct */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    cursor: url('hammer-cursor.png'), auto; /* Make sure you have hammer-cursor.png in the same directory! */
+    overflow: hidden; 
+    aspect-ratio: 1 / 1; /* Ensures tiles are square regardless of grid size */
+    display: flex; /* Use flexbox for centering image within the tile */
+    justify-content: center;
+    align-items: center;
+}
+
+#board div img {
+    /* Styles for the mole/plant images inside the holes */
+    width: 100px; /* Adjust size of mole/plant */
+    height: 100px; /* Adjust size of mole/plant */
+
+    user-select: none;
+    -moz-user-select: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+}
+
+/* Style for the speed buttons themselves */
+.Speed {
+    padding: 10px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 8px;
+    background-color: #64dd17; /* A green button color */
+    color: white;
+    transition: background-color 0.2s ease;
+}
+
+.Speed:hover {
+    background-color: #33691e; /* Darker green on hover */
+}

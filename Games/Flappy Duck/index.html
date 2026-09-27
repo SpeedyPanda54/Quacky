@@ -10,7 +10,7 @@
 <body>
     <!-- Permanent Arcade Marquee Header - Moved OUT of game-container -->
     <div id="game-header">
-        <h1><a href="/index.html" class="home-link">Quacky Arcade</a></h1>
+        <h1><a href="/index.html" class="home-link">Quacky</a></h1>
     </div>
 
     <div id="game-container">
@@ -22,7 +22,7 @@
 
         <div id="countdown-display" class="game-overlay hidden"></div>
 
-        <div id="start-screen" class="game-overlay">
+        <<div id="start-screen" class="game-overlay">
             <h1>Flappy Duck</h1>
             <div class="difficulty-buttons">
                 <button id="difficulty-Beginner" class="difficulty-button active">Beginner</button>
@@ -35,30 +35,32 @@
             </div>
         </div>
 
-        <div id="game-over-screen" class="game-overlay hidden">
-            <h1>Game Over!</h1>
-            <p>Score: <span id="final-score-value">0</span></p>
-            <p>High Score (<span id="final-high-score-difficulty">Advanced</span>): <span id="final-high-score-value">0</span></p>
+       <div id="game-over-screen" class="game-overlay" style="display: none;">
+    <h1>Game Over!</h1>
+    <p>Score: <span id="final-score-value">0</span></p>
+    
+    <!-- ADDED THESE TWO MISSING ELEMENTS TO PREVENT JS CRASHES -->
+    <p style="font-size: 0.8em; margin: 5px 0;">
+        High Score (<span id="final-high-score-difficulty">Advanced</span>): <span id="final-high-score-value">0</span>
+    </p>
 
-            <!-- Global Score Submission & Leaderboard Section -->
-            <div id="score-submission" style="margin: 5px 0;">
-                <input type="text" id="player-name" placeholder="Enter Name" maxlength="25" style="padding: 5px; font-family: 'Press Start 2P'; font-size: 0.6em; width: 140px;">
-                <button id="submit-score-btn" style="padding: 6px 10px; font-size: 0.6em; margin: 0;">Submit</button>
-            </div>
+    <!-- High Score Submission Form -->
+    <div id="score-submit-area" class="mb-3">
+        <input type="text" id="player-name" placeholder="Enter Name" maxlength="25" class="form-control form-control-sm text-center mb-2" style="font-family: 'Press Start 2P'; font-size: 0.6em; width: 200px; display: inline-block;">
+        <br>
+        <button id="submit-score-btn" class="btn btn-primary btn-sm fw-bold px-3 py-1" style="font-family: 'Press Start 2P'; font-size: 0.5em;">Save Score</button>
+    </div>
 
-            <h3 style="font-size: 0.7em; margin: 8px 0;">Global Top 5</h3>
-            <ul id="leaderboard-list" style="font-size: 0.55em; text-align: left; list-style-type: none; padding: 0; margin: 0 0 10px 0; max-height: 80px; overflow-y: auto; width: 80%;">
-                <li>Loading scores...</li>
-            </ul>
+    <!-- Leaderboard List -->
+    <div id="leaderboard-container" class="mb-3 bg-dark border border-success p-2 rounded" style="width: 250px; font-size: 0.5em;">
+        <p class="text-success fw-bold mb-1">-- TOP HIGH SCORES --</p>
+        <ol id="leaderboard-list" class="text-start ps-3 mb-0 text-white">
+            <li>Loading...</li>
+        </ol>
+    </div>
 
-            <div class="difficulty-buttons">
-                <button id="difficulty-Beginner" class="difficulty-button active">Beginner</button>
-                <button id="difficulty-Advanced" class="difficulty-button">Advanced</button>
-                <button id="difficulty-Expert" class="difficulty-button">Expert</button>
-            </div>
-
-            <button id="restart-button">Play Again</button>
-        </div>
+    <button id="restart-button" class="btn btn-success fw-bold px-4 py-2">Play Again</button>
+</div>
     </div>
 
     <script type="module" src="flappybird.js"></script>

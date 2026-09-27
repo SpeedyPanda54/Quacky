@@ -4,17 +4,38 @@
 const games = [
     {
         title: "Flappy Duck",
-        description: "Flapp through the pipes and avoid obstacles in this fun and challenging game!",
+        description: "Flap through the pipes and avoid obstacles in this fun and challenging game!",
         image: "Previews/FlappyDuckPreview.png",
         link: "Games/Flappy Duck/index.html",
         isComingSoon: false
     },
     {
         title: "Snake",
-        description: "A brand new secret game is currently hatching...",
-        image: "",
-        link: "#",
-        isComingSoon: true
+        description: "Run along the screen as long as you can without bumping into your growing body!",
+        image: "Previews/SnakePreview.png",
+        link: "Games/Snake/index.html",
+        isComingSoon: false
+    },
+    {
+        title: "Out of Place in Outer Space",
+        description: "Explore the spaceship while trying to avoid the Saboteur while voting them out!",
+        image: "Previews/OutOfPlaceInSpacePreview.png",
+        link: "Games/Out of Place in Space/index.html",
+        isComingSoon: false
+    },
+    {
+        title: "Whack-a-Duck",
+        description: "Whack the ducks as they pop up from their holes in this fast-paced game!",
+        image: "Previews/WhackADuckPreview.png",
+        link: "Games/Whack-a-Duck/index.html",
+        isComingSoon: false
+    },
+    {
+        title: "Tic-Tac-Duck",
+        description: "Play Tic-Tac-Toe with an online twist! Can you outsmart your opponent?",
+        image: "Previews/TicTacDuckPreview.png",
+        link: "Games/Tic-Tac-Duck/index.html",
+        isComingSoon: false
     }
 ];
 

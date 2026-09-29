@@ -36,6 +36,20 @@ const games = [
         image: "Previews/TicTacDuckPreview.png",
         link: "Games/Tic-Tac-Duck/index.html",
         isComingSoon: false
+    },
+    {
+        title: "Pong",
+        description: "Classic Pong game with a Quacky twist! Bounce the ball and score points!",
+        image: "Previews/PongPreview.png",
+        link: "Games/Pong/index.html",
+        isComingSoon: false
+    },
+    {
+        title: "Karmeleon",
+        description: "Hide and Seek with a twist! Blend into the environment to trick the seeker",
+        image: "Previews/KarmeleonPreview.png",
+        link: "Games/Karmeleon/index.html",
+        isComingSoon: true
     }
 ];
 

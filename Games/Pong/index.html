@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quacky | Pong</title>
+    <link rel="stylesheet" href="pong.css">
+</head>
+<body>
+    <!-- Mode Switch & Room Controls -->
+    <div class="controls-bar">
+        <button id="mode-toggle-btn">Switch to Online Mode</button>
+        <button id="reset-room-btn">Reset Online Room</button>
+    </div>
+
+    <div class="game-container">
+        <h1>Pong 🏓</h1>
+        <h2 id="status">Local 2P: P1 (W/S) | P2 (Up/Down)</h2>
+        
+        <canvas id="pongCanvas" width="800" height="400"></canvas>
+        
+        <button id="reset-btn">Restart Match</button>
+    </div>
+
+    <!-- Firebase SDKs for Online Mode -->
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-database-compat.js"></script>
+
+    <!-- Reusable Quacky Header & Pong Logic -->
+    <script src="/QuackyTitle.js"></script>
+    <script src="pong.js"></script>
+</body>
+</html>

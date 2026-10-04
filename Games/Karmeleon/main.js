@@ -72,7 +72,7 @@ function showNextIntroLine() {
         storyOverlay.style.display = 'block';
         storyText.innerText = introDialogue[dialogueIndex];
         dialogueIndex++;
-        setTimeout(showNextIntroLine, 4000); 
+        setTimeout(showNextIntroLine, 7000); 
     } else {
         storyOverlay.style.display = 'none';
         gameState = "PLAYING"; // Release player control

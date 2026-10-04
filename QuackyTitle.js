@@ -12,7 +12,7 @@ function injectQuackyHeader() {
 
     // Create clickable Quacky Title Button that redirects home
     const homeBtn = document.createElement("button");
-    homeBtn.innerText = "🚀 QUACKY";
+    homeBtn.innerText = "🚀 GOOSEGAMES";
     homeBtn.style.fontSize = "2.5em";
     homeBtn.style.fontWeight = "bold";
     homeBtn.style.color = "#ffffff";

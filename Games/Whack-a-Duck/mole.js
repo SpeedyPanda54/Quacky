@@ -108,9 +108,9 @@ window.onload = function() {
     });
 }
 
-// Loads High Scores from Firebase in real-time
+// Loads High Scores from Firebase in real-time (with client-side sorting to prevent index errors)
 function loadHighScoreForCurrentSpeed() {
-    const scoresRef = db.ref(`whackAMole/highscores/${gameSpeed}`).orderByChild("score").limitToLast(5);
+    const scoresRef = db.ref(`whackAMole/highscores/${gameSpeed}`);
     const leaderboardList = document.getElementById("leaderboard-list");
 
     scoresRef.on("value", (snapshot) => {
@@ -119,7 +119,9 @@ function loadHighScoreForCurrentSpeed() {
             scores.push(childSnap.val());
         });
 
-        scores.reverse();
+        // Sort highest score first in JavaScript (bypasses Firebase .indexOn requirement)
+        scores.sort((a, b) => b.score - a.score);
+        scores = scores.slice(0, 5); // Keep top 5
 
         if (scores.length === 0) {
             currentHighScore = 0;
@@ -146,8 +148,7 @@ function loadHighScoreForCurrentSpeed() {
     });
 }
 
-// Saves score to Firebase on Game Over
-// Saves/Submits score to Firebase on Game Over using a safe HTML modal
+// Saves/Submits score to Firebase on Game Over with Enter-key support
 function saveHighScoreForCurrentSpeed() {
     if (score <= 0) return;
 
@@ -157,7 +158,6 @@ function saveHighScoreForCurrentSpeed() {
     const submitBtn = document.getElementById("submit-score-btn");
 
     if (!modal) {
-        // Fallback if modal HTML wasn't added yet
         const scoresRef = db.ref(`whackAMole/highscores/${gameSpeed}`);
         scoresRef.push({
             name: "Anonymous Hunter",
@@ -176,7 +176,7 @@ function saveHighScoreForCurrentSpeed() {
     const newSubmitBtn = submitBtn.cloneNode(true);
     submitBtn.parentNode.replaceChild(newSubmitBtn, submitBtn);
 
-    newSubmitBtn.addEventListener("click", () => {
+    const submitAction = () => {
         let playerName = nameInput.value.trim();
         if (!playerName) {
             playerName = "Anonymous Hunter";
@@ -190,7 +190,16 @@ function saveHighScoreForCurrentSpeed() {
         });
 
         modal.style.display = "none";
-    });
+    };
+
+    newSubmitBtn.addEventListener("click", submitAction);
+
+    // Allow submitting by pressing Enter on the input field
+    nameInput.onkeydown = (e) => {
+        if (e.key === "Enter") {
+            submitAction();
+        }
+    };
 }
 
 // Main game setup and reset

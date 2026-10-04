@@ -6,13 +6,9 @@
     <title>Quacky | Flappy Duck</title>
     <link rel="stylesheet" href="flappybird.css">
     <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%234fc3f7' stroke='%23ffffff' stroke-width='3'/><circle cx='32' cy='34' r='16' fill='%23FFD700'/><path d='M 46 32 C 52 32, 54 35, 46 38 Z' fill='%23FF8C00'/><circle cx='38' cy='28' r='2.5' fill='%23000000'/><circle cx='39' cy='27' r='0.8' fill='%23ffffff'/></svg>">
 </head>
 <body>
-    <!-- Permanent Arcade Marquee Header - Moved OUT of game-container -->
-    <div id="game-header">
-        <h1><a href="/index.html" class="home-link">Quacky</a></h1>
-    </div>
-
     <div id="game-container">
         <canvas id="board"></canvas>
 
@@ -22,7 +18,7 @@
 
         <div id="countdown-display" class="game-overlay hidden"></div>
 
-        <<div id="start-screen" class="game-overlay">
+        <div id="start-screen" class="game-overlay">
             <h1>Flappy Duck</h1>
             <div class="difficulty-buttons">
                 <button id="difficulty-Beginner" class="difficulty-button active">Beginner</button>
@@ -39,7 +35,6 @@
     <h1>Game Over!</h1>
     <p>Score: <span id="final-score-value">0</span></p>
     
-    <!-- ADDED THESE TWO MISSING ELEMENTS TO PREVENT JS CRASHES -->
     <p style="font-size: 0.8em; margin: 5px 0;">
         High Score (<span id="final-high-score-difficulty">Advanced</span>): <span id="final-high-score-value">0</span>
     </p>
@@ -62,7 +57,7 @@
     <button id="restart-button" class="btn btn-success fw-bold px-4 py-2">Play Again</button>
 </div>
     </div>
-
+    <script src="/QuackyTitle.js"></script>
     <script type="module" src="flappybird.js"></script>
 </body>
 </html>

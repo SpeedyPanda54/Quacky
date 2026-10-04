@@ -357,7 +357,6 @@ function handleInput(e) {
    if (currentGameState === GAME_STATE.START) {
         currentGameState = GAME_STATE.COUNTDOWN;
         
-        // ADD THIS LINE RIGHT HERE:
         document.getElementById("start-screen").style.display = "none";
         
         resetGame();
@@ -507,9 +506,6 @@ function updateUIHighScore() {
     finalHighScoreValueElement.innerText = currentHighScore.toString();
 }
 
-// Helper to show an HTML element by removing 'hidden' class
-// Helper to show an HTML element by removing 'hidden' class
-// Helper to show an HTML element by removing 'hidden' class and resetting style
 function showScreen(element) {
     if (!element) return;
     element.classList.remove("hidden");
@@ -546,7 +542,6 @@ function setDifficulty(event) {
 
 // 1. Trigger this inside your existing game over function
 function triggerGameOver() {
-    // ... whatever your current game over code does ...
     fetchHighScores(); // Pulls the leaderboard live
 }
 

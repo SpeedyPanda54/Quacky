@@ -46,11 +46,19 @@ const games = [
     },
     {
         title: "Karmeleon",
-        description: "Hide and Seek with a twist! Blend into the environment to trick the seeker",
+        description: "Save the world from the evil Syndicate by extracting the mysterious and unstable Karma Core from their secret facility! But be careful, the Syndicate has locked down the facility and is hunting you down!",
         image: "Previews/KarmeleonPreview.png",
         link: "Games/Karmeleon/index.html",
-        isComingSoon: true
+        isComingSoon: false
+    },
+    {
+        title: "Apex Velocity",
+        description: "Drive through the chaotic streets of 3026 in your CyberCar!",
+        image: "Previews/ApexVelocityPreview.png",
+        link: "Games/Apex Velocity/index.html",
+        isComingSoon: false
     }
+    
 ];
 
 function renderGames() {

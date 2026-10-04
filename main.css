@@ -1,5 +1,5 @@
 /* ==========================================
-   QUACKY ARCADE: Custom Kids Theme
+   QUACKY ARCADE: CSS STYLES
    ========================================== */
 
 @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&display=swap');
@@ -23,8 +23,6 @@ header h1 {
 footer a#contactMail {
     color: #0d47a1 !important;
 }
-
-/* Game Image Wrapper */
 /* Game Image Wrapper */
 .gameImageWrapper {
     width: 100%;

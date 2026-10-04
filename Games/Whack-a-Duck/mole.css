@@ -115,7 +115,6 @@ h2 {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    cursor: url('hammer-cursor.png'), auto; /* Make sure you have hammer-cursor.png in the same directory! */
     overflow: hidden; 
     aspect-ratio: 1 / 1; /* Ensures tiles are square regardless of grid size */
     display: flex; /* Use flexbox for centering image within the tile */
@@ -124,9 +123,8 @@ h2 {
 }
 
 #board div img {
-    /* Styles for the mole/plant images inside the holes */
-    width: 100px; /* Adjust size of mole/plant */
-    height: 100px; /* Adjust size of mole/plant */
+    width: 100px; 
+    height: 100px; 
 
     user-select: none;
     -moz-user-select: none;

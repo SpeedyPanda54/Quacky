@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quacky | Apex Velocity</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #000; font-family: monospace; }
+        canvas { display: block; }
+
+        /* HUD Overlay */
+        #hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            color: #00ffcc;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
+            border: 2px solid #00ffcc;
+            border-radius: 8px;
+            pointer-events: none;
+            box-shadow: 0 0 15px rgba(0,255,204,0.4);
+        }
+        h1 { margin: 0 0 5px 0; font-size: 18px; letter-spacing: 2px; }
+        p { margin: 0; font-size: 14px; color: #fff; }
+
+        /* Pointer Lock Instructions Banner */
+        #instructions {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.85);
+            padding: 30px 50px;
+            border: 2px solid #ff0055;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(255,0,85,0.5);
+            cursor: pointer;
+            transition: opacity 0.3s;
+        }
+        #instructions h2 { margin: 0 0 10px 0; color: #ff0055; font-size: 22px; letter-spacing: 2px; }
+        #instructions p { margin: 5px 0; font-size: 14px; color: #ccc; }
+        #instructions .highlight { color: #00ffcc; font-weight: bold; }
+    </style>
+
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+                "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
+            }
+        }
+    </script>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%234fc3f7' stroke='%23ffffff' stroke-width='3'/><circle cx='32' cy='34' r='16' fill='%23FFD700'/><path d='M 46 32 C 52 32, 54 35, 46 38 Z' fill='%23FF8C00'/><circle cx='38' cy='28' r='2.5' fill='%23000000'/><circle cx='39' cy='27' r='0.8' fill='%23ffffff'/></svg>">
+</head>
+<body>
+    <div id="hud">
+        <h1>APEX VELOCITY</h1>
+        <p>Speed: <span id="speed-display">0</span> CPS</p>
+        <p>Distance: <span id="distance-display">0.000</span> KCPS</p>
+        <p>Camera [C]: <span id="cam-display">Full View</span></p>
+        
+        
+        <!-- New Collision Bar HUD -->
+        <div style="margin-top: 10px;">
+            <p style="font-size: 0.8rem; margin-bottom: 4px;">SYSTEM INTEGRITY: <span id="integrity-text">100%</span></p>
+            <div style="width: 180px; height: 10px; background: #111122; border: 1px solid #00f0ff; border-radius: 2px; overflow: hidden;">
+                <div id="collision-bar" style="width: 0%; height: 100%; background: #ff0055; transition: width 0.15s ease-out;"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Over Overlay Screen -->
+    <div id="game-over-screen" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(2, 2, 8, 0.9); flex-direction: column; align-items: center; justify-content: center; z-index: 100; font-family: sans-serif; color: white;">
+        <h1 style="color: #ff0055; font-size: 3.5rem; text-shadow: 0 0 20px #ff0055; margin-bottom: 10px;">SYSTEM CRASH</h1>
+        <p style="font-size: 1.2rem; color: #00f0ff; margin-bottom: 5px;">Distance Traveled: <span id="final-distance">0.000</span> KCPS</p>
+        <p style="font-size: 1.1rem; color: #8888aa; margin-bottom: 30px;">Personal Best: <span id="best-distance">0.000</span> KCPS</p>
+        <button id="restart-btn" style="padding: 14px 32px; background: #00f0ff; color: #020208; border: none; font-size: 1.2rem; font-weight: bold; cursor: pointer; box-shadow: 0 0 20px #00f0ff; border-radius: 4px;">RESTART SYSTEM</button>
+    </div>
+
+    <div id="instructions">
+        <h2>APEX VELOCITY</h2>
+        <p>Click anywhere to <span class="highlight">Lock Mouse & Drive</span></p>
+        <p style="margin-top: 15px; font-size: 12px; color: #888;">
+            [W/S] Accelerate/Brake &nbsp;|&nbsp; [Mouse] Steer &nbsp;|&nbsp; [Space] Stop<br>
+            [Shift] Drift &nbsp;|&nbsp; [F] Nitro &nbsp;|&nbsp; [C] Change Camera
+        </p>
+    </div>
+    <script src="/QuackyTitle.js"></script>
+    <script type="module" src="main.js"></script>
+</body>
+</html>

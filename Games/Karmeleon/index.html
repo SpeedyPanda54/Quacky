@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Karmeleon</title>
+    <title>Quacky | Karmeleon</title>
     <style>
         body { margin: 0; overflow: hidden; background: #000; }
         canvas { display: block; }
@@ -48,7 +48,7 @@
             z-index: 50;
         }
     </style>
-
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><circle cx='32' cy='32' r='30' fill='%234fc3f7' stroke='%23ffffff' stroke-width='3'/><circle cx='32' cy='34' r='16' fill='%23FFD700'/><path d='M 46 32 C 52 32, 54 35, 46 38 Z' fill='%23FF8C00'/><circle cx='38' cy='28' r='2.5' fill='%23000000'/><circle cx='39' cy='27' r='0.8' fill='%23ffffff'/></svg>">
     <script type="importmap">
         {
             "imports": {
@@ -59,9 +59,30 @@
     </script>
 </head>
 <body>
+<div id="story-overlay" style="
+    position: fixed;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    background: rgba(10, 10, 15, 0.85);
+    border: 2px solid #56a8ff;
+    color: #d8dee9;
+    padding: 20px;
+    font-family: monospace;
+    font-size: 16px;
+    text-align: center;
+    display: none;
+    z-index: 100;
+    pointer-events: none;
+    box-shadow: 0 0 15px rgba(86, 168, 255, 0.3);
+">
+    <div id="story-text"></div>
+</div>
     <div id="crosshair"></div>
     <div id="color-hud"></div>
     <div id="color-overlay"></div>
+    <script src="./QuackyTitle.js"></script>
     <script type="module" src="main.js"></script>
 </body>
 </html>

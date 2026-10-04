@@ -1,10 +1,12 @@
 import * as THREE from 'three';
 
 export class FirstPersonController {
-    constructor(camera, domElement, colliders = []) {
+    constructor(camera, domElement, colliders = [], visualObjects = []) {
         this.camera = camera;
         this.domElement = domElement;
         this.colliders = colliders;
+        // Fallback to colliders if no separate visual objects array is given
+        this.visualObjects = visualObjects.length > 0 ? visualObjects : colliders;
 
         this.moveState = {
             forward: false, backward: false, left: false, right: false, shift: false
@@ -17,8 +19,6 @@ export class FirstPersonController {
         this.normalHeight = 1.6;
         this.crouchHeight = 0.8;
         this.isCrouching = false;
-        
-        // Use a stable player height depending on state to prevent physics bouncing
         this.playerHeight = this.normalHeight;
         
         this.gravity = 25.0; 
@@ -45,18 +45,22 @@ export class FirstPersonController {
     }
 
     initEvents() {
+        // Click canvas to activate mouse look pointer lock
         this.domElement.addEventListener('click', () => {
             this.domElement.requestPointerLock();
         });
 
         document.addEventListener('contextmenu', (e) => e.preventDefault());
 
+        // Right-click to clear/reset color
         document.addEventListener('mousedown', (e) => {
+            if (document.pointerLockElement !== this.domElement) return;
             if (e.button === 2) { 
                 this.resetColor();
             }
         });
 
+        // Mouse look movement
         document.addEventListener('mousemove', (event) => {
             if (document.pointerLockElement !== this.domElement) return;
             const sensitivity = 0.002;
@@ -66,6 +70,7 @@ export class FirstPersonController {
             this.updateCameraRotation();
         });
 
+        // Keyboard inputs
         window.addEventListener('keydown', (e) => {
             switch (e.code) {
                 case 'KeyW': case 'ArrowUp': this.moveState.forward = true; break;
@@ -76,7 +81,6 @@ export class FirstPersonController {
                 case 'KeyC':
                     this.isCrouching = !this.isCrouching;
                     this.playerHeight = this.isCrouching ? this.crouchHeight : this.normalHeight;
-                    console.log("--> CROUCH TOGGLED:", this.isCrouching, "Height:", this.playerHeight);
                     break;
                 case 'Space':
                     if (this.isGrounded) {
@@ -113,26 +117,21 @@ export class FirstPersonController {
         this.camera.quaternion.setFromEuler(tempEuler);
     }
 
-   trySampleColor() {
-        // Force the camera matrices to update immediately so the ray matches your exact crosshair
+    trySampleColor() {
+        // Force world matrix update so raycaster matches crosshair instantly
         this.camera.updateMatrixWorld(true);
 
         const centerScreen = new THREE.Vector2(0, 0);
         this.raycaster.setFromCamera(centerScreen, this.camera);
-        this.raycaster.far = 50; // Expanded reach
+        this.raycaster.far = 50;
 
-        // Pass 'true' as the second parameter to check child meshes recursively (critical for grouped models/terminals)
-        const intersects = this.raycaster.intersectObjects(this.colliders, true);
-
-        console.log("Raycaster hits detected:", intersects.length);
+        // Intersect against visual meshes recursively
+        const intersects = this.raycaster.intersectObjects(this.visualObjects, true);
 
         if (intersects.length > 0) {
             const hit = intersects[0];
             const obj = hit.object;
-            
-            console.log("Hit Object Name:", obj.name || "unnamed", "Distance:", hit.distance);
 
-            // Check if the object or its material has a color
             let targetColor = null;
             if (obj.material) {
                 if (obj.material.color) {
@@ -145,19 +144,13 @@ export class FirstPersonController {
             if (targetColor) {
                 this.currentColor.copy(targetColor);
                 this.updateHUD();
-                console.log("SUCCESS: Color Sampled:", targetColor.getHexString());
-            } else {
-                console.log("Hit an object, but it has no standard material color property.");
             }
-        } else {
-            console.log("Raycaster missed everything. Is the red object inside your 'colliders' array?");
         }
     }
 
     resetColor() {
         this.currentColor.copy(this.defaultColor);
         this.updateHUD();
-        console.log("Color reset to default.");
     }
 
     updateHUD() {
@@ -171,7 +164,6 @@ export class FirstPersonController {
         }
 
         if (screenOverlay) {
-            // Make the color shift unmistakably visible across the screen edges
             screenOverlay.style.boxShadow = `inset 0 0 80px ${hexStr}`;
             screenOverlay.style.opacity = (this.currentColor.equals(this.defaultColor)) ? '0' : '0.8';
         }

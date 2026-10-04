@@ -61,7 +61,8 @@ let extractionTimer = 0;
 const introDialogue = [
     "LOG ENTRY: Sector 4 'Karmeleon' Infiltration.",
     "The Syndicate has locked down the unstable Karma Core in Sector B.",
-    "Your adaptive camouflage suit is online. Match your suit to wall frequencies to evade security drones, bypass color gates, and retrieve the core.",
+    "Use wasd to move while looking around with your mouse. Press shift to sprint, space to jump, and c to crouch.",
+    "Your adaptive camouflage suit is online. Match your suit to wall frequencies with e to evade security drones, bypass color gates, and retrieve the core.",
     "Warning: Extraction will trigger an immediate structural lockdown. Good luck."
 ];
 let dialogueIndex = 0;

@@ -30,7 +30,7 @@ function injectQuackyHeader() {
         if (typeof playersRef !== 'undefined' && typeof myPlayerId !== 'undefined' && playersRef && myPlayerId) {
             playersRef.child(myPlayerId).remove();
         }
-        window.location.href = "/Goosegames/index.html";
+        window.location.href = "/GooseGames";
     });
 
     headerContainer.appendChild(homeBtn);
